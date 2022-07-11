@@ -33,4 +33,5 @@ const Container = styled.Pressable`
 const CustomImage = styled.Image`
   width: 100%;
   height: 100%;
+  border-radius: ${wp(5)}px;
 `
