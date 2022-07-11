@@ -8,6 +8,12 @@ const doctorStrange = require('./doctorStrange.png')
 const ironman = require('./ironman.png')
 const blackWidow = require('./blackWidow.png')
 const blackPanther = require('./blackPanther.png')
+const batMan = require('./batMan.png')
+const superMan = require('./superMan.png')
+const wonderWoman = require('./wonderWoman.png')
+const flash = require('./flash.png')
+const aquaMan = require('./aquaMan.png')
+const joker = require('./joker.png')
 
 export {
   marvelBg,
@@ -20,4 +26,10 @@ export {
   ironman,
   blackPanther,
   blackWidow,
+  joker,
+  batMan,
+  superMan,
+  wonderWoman,
+  aquaMan,
+  flash,
 }
