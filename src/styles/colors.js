@@ -1,4 +1,6 @@
 export default {
   white: '#ffffff',
   black: '#000000',
+  neonRed: '#FF5733',
+  neonBlue: '#3A68E8',
 }
