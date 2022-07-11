@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { Dimensions, PixelRatio } from 'react-native'
-import { path, pathOr } from 'ramda'
 
 const designResolution = {
   width: 960,
