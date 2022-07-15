@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
 import {
   widthPercentageToDP as wp,
@@ -7,26 +7,43 @@ import {
 } from 'react-native-responsive-screen'
 import { colors } from '@styles/colors'
 import BackHeader from '@components/BackHeader'
+import { fetchHeroMovies, MoviesType } from '@modules/heroes/data'
 
-const Heroes: FC = (props: any) => {
-  const _universe = props?.route.params?.universe
+const HeroMovies: FC = (props: any) => {
+  const universe = props?.route.params?.universe
+  const hero = props?.route.params?.hero
+  const [movies, setMovies] = useState<MoviesType[] | []>([])
+
+  useEffect(() => {
+    const onSuccess = (moviesArray: MoviesType[]) => {
+      setMovies(moviesArray)
+    }
+    fetchHeroMovies(hero?.name, onSuccess)
+  }, [hero])
+
   return (
     <CustomSafeArea>
       <BackHeader />
-      <MainContainer />
+      <MainContainer>
+        <CustomScroll>
+          <MoviesContainer>
+            {movies?.map((movie: MoviesType) => (
+              <GhostButton>
+                <MoviePoster
+                  key={movie.id}
+                  source={{ uri: movie.image }}
+                  resizeMode='cover'
+                />
+              </GhostButton>
+            ))}
+          </MoviesContainer>
+        </CustomScroll>
+      </MainContainer>
     </CustomSafeArea>
   )
 }
 
-export default Heroes
-
-const SlideStyle = {
-  width: wp(90),
-}
-
-const ContainerCustomStyle = {
-  maxHeight: hp(60),
-}
+export default HeroMovies
 
 const CustomSafeArea = styled.SafeAreaView`
   background-color: ${colors.black};
@@ -41,30 +58,21 @@ const MainContainer = styled.View`
   align-items: center;
 `
 
-const ChooseButton = styled.Pressable<{ color: string }>`
-  width: ${wp(70)}px;
-  height: ${hp(8)}px;
-  border-radius: ${wp(5)}px;
-  border-width: 5px;
-  border-color: ${p => p.color};
-  justify-content: center;
+const CustomScroll = styled.ScrollView`
+  width: 100%;
+`
+
+const MoviesContainer = styled.View`
+  width: ${wp(100)}px;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
 `
 
-const ChooseText = styled.Text<{ color: string }>`
-  font-size: 20px;
-  color: ${p => p.color};
-  font-weight: bold;
+const MoviePoster = styled.Image`
+  width: ${wp(50)}px;
+  height: ${hp(35)}px;
 `
 
-const GhostButton = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-`
-
-const GhostButtonText = styled.Text`
-  font-size: 18px;
-  color: ${colors.white};
-  font-weight: bold;
-  text-transform: uppercase;
-`
+const GhostButton = styled.TouchableOpacity``

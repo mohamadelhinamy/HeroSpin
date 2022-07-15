@@ -6,6 +6,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen'
+import { useNavigation } from '@react-navigation/native'
 import { colors } from '@styles/colors'
 import { universes } from '@modules/home/data/Universes'
 import HeroCard from '@modules/heroes/components/HeroCard'
@@ -21,9 +22,12 @@ const Heroes: FC = (props: any) => {
   const {
     heroes: { pick, showHeroMovie },
   } = useContext(LangContext).dictionary
-  const universe = props?.route.params?.universe
+  const navigation = useNavigation()
+  const universe: 'Marvel' | 'DC' = props?.route.params?.universe
   const carouselRef = useRef<any>()
-  const [selectedHero, setSelectedHero] = useState<HeroType | undefined>()
+  const [selectedHero, setSelectedHero] = useState<HeroType>(
+    universes[universe]?.heroes[0],
+  )
 
   const pickARandomHero = () => {
     let rand = Math.random() * universes[universe]?.heroes.length
@@ -40,7 +44,11 @@ const Heroes: FC = (props: any) => {
           ref={carouselRef}
           data={universes[universe]?.heroes}
           renderItem={({ item }: any) => (
-            <HeroCard name={item.name} image={item.image} color={universes[universe]?.color} />
+            <HeroCard
+              name={item.name}
+              image={item.image}
+              color={universes[universe]?.color}
+            />
           )}
           sliderWidth={wp(100)}
           slideStyle={SlideStyle}
@@ -55,16 +63,25 @@ const Heroes: FC = (props: any) => {
           loop
           enableMomentum
           activeAnimationType='spring'
-          onSnapToItem={index => setSelectedHero(universes[universe]?.heroes[index])}
+          onSnapToItem={index =>
+            setSelectedHero(universes[universe]?.heroes[index])
+          }
         />
         {selectedHero && (
-          <GhostButton>
-            <GhostButtonText>{showHeroMovie(selectedHero?.name)}</GhostButtonText>
-          </GhostButton>
+          <ChooseButton
+            onPress={() =>
+              navigation.navigate('heroMovies', { hero: selectedHero })
+            }
+            color={universes[universe]?.color}
+          >
+            <ChooseText color={universes[universe]?.color}>
+              {showHeroMovie(selectedHero?.name)}
+            </ChooseText>
+          </ChooseButton>
         )}
-        <ChooseButton onPress={pickARandomHero} color={universes[universe]?.color}>
-          <ChooseText color={universes[universe]?.color}>{pick}</ChooseText>
-        </ChooseButton>
+        <GhostButton onPress={pickARandomHero}>
+          <GhostButtonText>{pick}</GhostButtonText>
+        </GhostButton>
       </MainContainer>
     </CustomSafeArea>
   )
@@ -95,7 +112,7 @@ const MainContainer = styled.View`
 
 const ChooseButton = styled.Pressable<{ color: string }>`
   width: ${wp(70)}px;
-  height: ${hp(8)}px;
+  min-height: ${hp(8)}px;
   border-radius: ${wp(5)}px;
   border-width: 5px;
   border-color: ${p => p.color};
@@ -107,6 +124,7 @@ const ChooseText = styled.Text<{ color: string }>`
   font-size: 20px;
   color: ${p => p.color};
   font-weight: bold;
+  text-align: center;
 `
 
 const GhostButton = styled.TouchableOpacity`

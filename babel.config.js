@@ -14,6 +14,7 @@ module.exports = {
           '@modules': './src/modules',
           '@styles': './src/styles',
           '@context': './src/context',
+          '@config': './src/config',
         },
       },
     ],
