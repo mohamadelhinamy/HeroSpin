@@ -5,13 +5,12 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen'
 
-export type UniverseProps = {
+type UniverseProps = {
   image: ImageData
-  name: string
   onPress: () => void
 }
 
-const UniverseCard: FC<UniverseProps> = ({ image, name, onPress }: UniverseProps) => {
+const UniverseCard: FC<UniverseProps> = ({ image, onPress }: UniverseProps) => {
   return (
     <Container onPress={onPress}>
       <CustomImage source={image} />

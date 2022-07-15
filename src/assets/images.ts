@@ -15,7 +15,7 @@ const flash = require('./flash.png')
 const aquaMan = require('./aquaMan.png')
 const joker = require('./joker.png')
 
-export {
+export const images = {
   marvelBg,
   dcBg,
   thor,

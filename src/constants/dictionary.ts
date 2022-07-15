@@ -5,6 +5,7 @@ export default {
     },
     heroes: {
       pick: 'PICK A RANDOM HERO',
+      showHeroMovie: (name: string): string => `Show ${name} movies`,
     },
   },
 }

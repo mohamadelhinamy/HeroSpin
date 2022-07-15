@@ -1,45 +1,41 @@
-import colors from 'styles/colors'
-import {
-  marvelBg,
-  dcBg,
-  captainAmerica,
-  thor,
-  hulk,
-  blackWidow,
-  blackPanther,
-  ironman,
-  batMan,
-  superMan,
-  wonderWoman,
-  flash,
-  aquaMan,
-  joker,
-} from 'assets/images'
+import { colors } from '@styles/colors'
+import { images } from '@assets/images'
+
+export type UniverseType = {
+  name: string
+  image: ImageData
+  heroes: HeroType[]
+}
+
+export type HeroType = {
+  name: string
+  image: string
+}
 
 export const universes = {
   Marvel: {
-    image: marvelBg,
+    image: images.marvelBg,
     name: 'Marvel',
     heroes: [
-      { name: 'Captain America', image: captainAmerica },
-      { name: 'Thor', image: thor },
-      { name: 'Hulk', image: hulk },
-      { name: 'Black Widow', image: blackWidow },
-      { name: 'Black Panther', image: blackPanther },
-      { name: 'Ironman', image: ironman },
+      { name: 'Captain America', image: images.captainAmerica },
+      { name: 'Thor', image: images.thor },
+      { name: 'Hulk', image: images.hulk },
+      { name: 'Black Widow', image: images.blackWidow },
+      { name: 'Black Panther', image: images.blackPanther },
+      { name: 'Ironman', image: images.ironman },
     ],
     color: colors.neonRed,
   },
   DC: {
-    image: dcBg,
+    image: images.dcBg,
     name: 'DC',
     heroes: [
-      { name: 'Batman', image: batMan },
-      { name: 'Superman', image: superMan },
-      { name: 'Wonder Woman', image: wonderWoman },
-      { name: 'The Flash', image: flash },
-      { name: 'Aquaman', image: aquaMan },
-      { name: 'The Joker', image: joker },
+      { name: 'Batman', image: images.batMan },
+      { name: 'Superman', image: images.superMan },
+      { name: 'Wonder Woman', image: images.wonderWoman },
+      { name: 'The Flash', image: images.flash },
+      { name: 'Aquaman', image: images.aquaMan },
+      { name: 'The Joker', image: images.joker },
     ],
     color: colors.neonBlue,
   },

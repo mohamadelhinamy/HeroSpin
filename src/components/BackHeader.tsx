@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import { useNavigation } from '@react-navigation/native'
-import colors from 'styles/colors'
+import { colors } from '@styles/colors'
 import styled from 'styled-components/native'
 
 export interface BackHeaderProps {

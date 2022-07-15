@@ -5,12 +5,11 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Dictionary from '../constants/dictionary'
 import * as types from './types'
 
-
 const LangContext = createContext<types.LangContextType>({
   lang: 'en',
-  dictionary: Dictionary['en'],
+  dictionary: Dictionary.en,
   RTL: false,
-  switchLang: () => { },
+  switchLang: (ln: 'en' | 'ar') => null,
 })
 
 export const LangProvider = ({ children }: types.IProps) => {
@@ -18,7 +17,7 @@ export const LangProvider = ({ children }: types.IProps) => {
 
   const getLang = async () => {
     AsyncStorage.getItem('lang').then(res => {
-      if (res !== null && res === 'en' || res === 'ar') {
+      if ((res !== null && res === 'en') || res === 'ar') {
         setLang(res)
       }
       if (res === 'ar') {
@@ -58,8 +57,7 @@ export const LangProvider = ({ children }: types.IProps) => {
         dictionary: Dictionary[lang],
         RTL: I18nManager.isRTL,
         switchLang,
-      }
-      }
+      }}
     >
       {children}
     </LangContext.Provider>

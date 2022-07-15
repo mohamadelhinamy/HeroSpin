@@ -4,12 +4,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen'
-import { Spotlight } from 'react-native-spotlight'
-import colors from 'styles/colors'
-import { universes } from 'modules/home/data/Universes'
-import UniverseCard, { UniverseProps } from 'modules/home/components/UniverseCard'
-import LangContext from 'context/LangContext'
 import { useNavigation } from '@react-navigation/native'
+import { Spotlight } from 'react-native-spotlight'
+import { colors } from '@styles/colors'
+import { universes, UniverseType } from '@modules/home/data/Universes'
+import UniverseCard from '@modules/home/components/UniverseCard'
+import LangContext from '@context/LangContext'
 
 const Home: FC = () => {
   const {
@@ -23,14 +23,17 @@ const Home: FC = () => {
         <Spotlight>
           <Title>{title}</Title>
         </Spotlight>
-        {Object.values(universes).map((universe: UniverseProps, index: number) => (
-          <UniverseCard
-            image={universe?.image}
-            name={universe?.name}
-            key={index}
-            onPress={() => navigation.navigate('heroes', { universe: universe?.name })}
-          />
-        ))}
+        {Object.values(universes).map(
+          (universe: UniverseType, index: number) => (
+            <UniverseCard
+              image={universe?.image}
+              key={index}
+              onPress={() =>
+                navigation.navigate('heroes', { universe: universe?.name })
+              }
+            />
+          ),
+        )}
       </MainContainer>
     </CustomSafeArea>
   )

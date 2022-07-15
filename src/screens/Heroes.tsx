@@ -1,29 +1,33 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { FC, useRef, useContext } from 'react'
+import React, { FC, useRef, useContext, useState } from 'react'
 import styled from 'styled-components/native'
 import Carousel from 'react-native-snap-carousel'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen'
-import colors from 'styles/colors'
-import { universes } from 'modules/home/data/Universes'
-import HeroCard from 'modules/heroes/components/HeroCard'
-import LangContext from 'context/LangContext'
-import BackHeader from 'components/BackHeader'
+import { colors } from '@styles/colors'
+import { universes } from '@modules/home/data/Universes'
+import HeroCard from '@modules/heroes/components/HeroCard'
+import LangContext from '@context/LangContext'
+import BackHeader from '@components/BackHeader'
+
+type HeroType = {
+  name: string
+  image: string
+}
 
 const Heroes: FC = (props: any) => {
   const {
-    heroes: { pick },
+    heroes: { pick, showHeroMovie },
   } = useContext(LangContext).dictionary
   const universe = props?.route.params?.universe
-  const carouselRef = useRef()
+  const carouselRef = useRef<any>()
+  const [selectedHero, setSelectedHero] = useState<HeroType | undefined>()
 
   const pickARandomHero = () => {
     let rand = Math.random() * universes[universe]?.heroes.length
-    console.log(rand) // say 99.81321410836433
     rand = Math.floor(rand) // 99
-
     carouselRef?.current?.snapToItem(rand)
   }
 
@@ -39,7 +43,7 @@ const Heroes: FC = (props: any) => {
             <HeroCard name={item.name} image={item.image} color={universes[universe]?.color} />
           )}
           sliderWidth={wp(100)}
-          slideStyle={{ width: wp(90) }}
+          slideStyle={SlideStyle}
           sliderHeight={hp(60)}
           itemWidth={wp(70)}
           itemHeight={hp(50)}
@@ -47,12 +51,17 @@ const Heroes: FC = (props: any) => {
           inactiveSlideOpacity={1}
           inactiveSlideScale={0.75}
           inactiveSlideShift={0.5}
-          containerCustomStyle={{ alignSelf: 'center', maxHeight: hp(60) }}
+          containerCustomStyle={ContainerCustomStyle}
           loop
           enableMomentum
           activeAnimationType='spring'
-          onSnapToItem={index => console.log(universes[universe]?.heroes[index], 'item')}
+          onSnapToItem={index => setSelectedHero(universes[universe]?.heroes[index])}
         />
+        {selectedHero && (
+          <GhostButton>
+            <GhostButtonText>{showHeroMovie(selectedHero?.name)}</GhostButtonText>
+          </GhostButton>
+        )}
         <ChooseButton onPress={pickARandomHero} color={universes[universe]?.color}>
           <ChooseText color={universes[universe]?.color}>{pick}</ChooseText>
         </ChooseButton>
@@ -62,6 +71,14 @@ const Heroes: FC = (props: any) => {
 }
 
 export default Heroes
+
+const SlideStyle = {
+  width: wp(90),
+}
+
+const ContainerCustomStyle = {
+  maxHeight: hp(60),
+}
 
 const CustomSafeArea = styled.SafeAreaView`
   background-color: ${colors.black};
@@ -90,4 +107,16 @@ const ChooseText = styled.Text<{ color: string }>`
   font-size: 20px;
   color: ${p => p.color};
   font-weight: bold;
+`
+
+const GhostButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+`
+
+const GhostButtonText = styled.Text`
+  font-size: 18px;
+  color: ${colors.white};
+  font-weight: bold;
+  text-transform: uppercase;
 `
