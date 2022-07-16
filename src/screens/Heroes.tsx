@@ -30,9 +30,12 @@ const Heroes: FC = (props: any) => {
     universes[universe]?.heroes[0],
   )
 
-  const pickARandomHero = () => {
-    let rand = Math.random() * universes[universe]?.heroes.length
-    rand = Math.floor(rand) // 99
+  const pickARandomHero = (activeIndex: number) => {
+    let rand
+    while (rand === activeIndex || !rand) {
+      rand = Math.random() * universes[universe]?.heroes.length
+      rand = Math.floor(rand)
+    }
     carouselRef?.current?.snapToItem(rand)
   }
 
@@ -84,7 +87,9 @@ const Heroes: FC = (props: any) => {
             />
           </ChooseButton>
         )}
-        <GhostButton onPress={pickARandomHero}>
+        <GhostButton
+          onPress={() => pickARandomHero(carouselRef?.current?.currentIndex)}
+        >
           <Typography
             text={pick}
             size={18}
