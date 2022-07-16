@@ -30,6 +30,7 @@ const Container = styled.Pressable<{ color: string }>`
   align-items: center;
   border-radius: ${wp(5)}px;
   box-shadow: ${p => `0px 0px 10px ${p.color}`};
+  elevation: 1;
 `
 
 const CustomImage = styled.Image`

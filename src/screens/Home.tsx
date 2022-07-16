@@ -56,7 +56,7 @@ const CustomSafeArea = styled.SafeAreaView`
 const MainContainer = styled.View`
   background-color: ${colors.black};
   width: ${wp(100)}px;
-  height: ${hp(92)}px;
+  height: ${hp(100)}px;
   align-self: center;
   justify-content: space-evenly;
   align-items: center;
