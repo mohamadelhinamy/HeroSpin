@@ -123,7 +123,7 @@ const MovieDetails: FC = (props: any) => {
               />
               <CustomHorizontalSctoll horizontal>
                 {movie?.actorList?.map((actor: ActorType) => (
-                  <Cast>
+                  <Cast key={actor?.id}>
                     <CastImage
                       source={{ uri: actor?.image }}
                       resizeMode='cover'
@@ -160,7 +160,10 @@ const MovieDetails: FC = (props: any) => {
                 />
                 <CustomHorizontalSctoll horizontal>
                   {movie?.similars?.map((similarMovie: SimilarMovieType) => (
-                    <GhostButton onPress={() => setMovieId(similarMovie?.id)}>
+                    <GhostButton
+                      onPress={() => setMovieId(similarMovie?.id)}
+                      key={similarMovie?.id}
+                    >
                       <SimilarMoviePoster
                         source={{ uri: similarMovie?.image }}
                       />
