@@ -12,6 +12,7 @@ import { universes } from '@modules/home/data/Universes'
 import HeroCard from '@modules/heroes/components/HeroCard'
 import LangContext from '@context/LangContext'
 import BackHeader from '@components/BackHeader'
+import Typography from '@components/Typography'
 
 type HeroType = {
   name: string
@@ -74,13 +75,23 @@ const Heroes: FC = (props: any) => {
             }
             color={universes[universe]?.color}
           >
-            <ChooseText color={universes[universe]?.color}>
-              {showHeroMovie(selectedHero?.name)}
-            </ChooseText>
+            <Typography
+              text={showHeroMovie(selectedHero?.name)}
+              size={20}
+              color={universes[universe]?.color}
+              textAlign={'center'}
+              fontWeight='bold'
+            />
           </ChooseButton>
         )}
         <GhostButton onPress={pickARandomHero}>
-          <GhostButtonText>{pick}</GhostButtonText>
+          <Typography
+            text={pick}
+            size={18}
+            color={colors.white}
+            textAlign={'center'}
+            fontWeight='bold'
+          />
         </GhostButton>
       </MainContainer>
     </CustomSafeArea>
@@ -120,21 +131,7 @@ const ChooseButton = styled.Pressable<{ color: string }>`
   align-items: center;
 `
 
-const ChooseText = styled.Text<{ color: string }>`
-  font-size: 20px;
-  color: ${p => p.color};
-  font-weight: bold;
-  text-align: center;
-`
-
 const GhostButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-`
-
-const GhostButtonText = styled.Text`
-  font-size: 18px;
-  color: ${colors.white};
-  font-weight: bold;
-  text-transform: uppercase;
 `

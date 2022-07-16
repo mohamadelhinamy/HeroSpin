@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 import Toast from 'react-native-toast-message'
-import { IMDB_SEARCH_API } from '@config/constants'
+import { IMDB_API } from '@config/constants'
 
 // Add a request interceptor
 const axiosInstance: AxiosInstance = axios.create()
@@ -14,7 +14,7 @@ axiosInstance.interceptors.request.use(
     if (!config?.headers?.['Content-Type'])
       config.headers['Content-Type'] = 'application/json'
     // Injecting the API server IP
-    config.url = IMDB_SEARCH_API + config.url
+    config.url = IMDB_API + config.url
     return config
   },
   (_error: any) => {

@@ -10,6 +10,8 @@ import { colors } from '@styles/colors'
 import { universes, UniverseType } from '@modules/home/data/Universes'
 import UniverseCard from '@modules/home/components/UniverseCard'
 import LangContext from '@context/LangContext'
+import { color } from 'react-native-reanimated'
+import Typography from '@components/Typography'
 
 const Home: FC = () => {
   const {
@@ -21,7 +23,13 @@ const Home: FC = () => {
     <CustomSafeArea>
       <MainContainer>
         <Spotlight>
-          <Title>{title}</Title>
+          <Typography
+            text={title}
+            size={20}
+            color={colors.white}
+            textAlign={'center'}
+            fontWeight='800'
+          />
         </Spotlight>
         {Object.values(universes).map(
           (universe: UniverseType, index: number) => (
@@ -52,11 +60,4 @@ const MainContainer = styled.View`
   align-self: center;
   justify-content: space-evenly;
   align-items: center;
-`
-
-const Title = styled.Text`
-  font-size: 20px;
-  font-weight: 800;
-  color: ${colors.white};
-  text-align: center;
 `

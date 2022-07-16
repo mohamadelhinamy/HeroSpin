@@ -5,12 +5,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen'
+import { useNavigation } from '@react-navigation/native'
 import { colors } from '@styles/colors'
 import BackHeader from '@components/BackHeader'
 import { fetchHeroMovies, MoviesType } from '@modules/heroes/data'
 
 const HeroMovies: FC = (props: any) => {
-  const universe = props?.route.params?.universe
+  const navigation = useNavigation()
   const hero = props?.route.params?.hero
   const [movies, setMovies] = useState<MoviesType[] | []>([])
 
@@ -28,7 +29,11 @@ const HeroMovies: FC = (props: any) => {
         <CustomScroll>
           <MoviesContainer>
             {movies?.map((movie: MoviesType) => (
-              <GhostButton>
+              <GhostButton
+                onPress={() =>
+                  navigation.navigate('movieDetails', { movieId: movie.id })
+                }
+              >
                 <MoviePoster
                   key={movie.id}
                   source={{ uri: movie.image }}
