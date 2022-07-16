@@ -4,4 +4,5 @@ export const colors = {
   neonRed: '#FF5733',
   neonBlue: '#3A68E8',
   offWhite: '#fffff0',
+  orange: '#f37413',
 }
