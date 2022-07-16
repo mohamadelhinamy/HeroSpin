@@ -14,9 +14,6 @@
  ### Generate apk
         add app credentials to gradle.properties file
         cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..
-​
- ### Generate aab
-        cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..
 
 ## Folder Structure
 ```
